@@ -27,6 +27,9 @@ public class LogWebSocket {
     private Session session;
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    static {
+    }
     //处理连接建立
     @OnOpen
     public void onOpen(Session session){
@@ -39,7 +42,8 @@ public class LogWebSocket {
     //接受消息
     @OnMessage
     public void onMessage(String message,Session session){
-        log.info("收到客户端{}消息：{}",session.getId(),message);
+        log.info(message);
+//        log.info("收到客户端{}消息：{}",session.getId(),message);
 //        try{
 //            this.sendMessage("收到消息："+message);
 //        }catch (Exception e){
