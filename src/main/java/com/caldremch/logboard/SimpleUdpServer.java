@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
 /**
  * Created by Leon on 2022/10/6
  */
-@Component
+//@Component
 public class SimpleUdpServer implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(SimpleUdpServer.class);

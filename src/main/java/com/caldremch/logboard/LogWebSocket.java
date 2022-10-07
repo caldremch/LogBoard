@@ -10,6 +10,7 @@ import sun.tools.jinfo.JInfo;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -49,8 +50,9 @@ public class LogWebSocket {
     public void onMessage(String message,Session session){
 
         try {
-            log.info(message);
-            JsonObject jsonObject = (JsonObject) jsonParser.parse(message);
+//            log.info(message);
+            String decodeMsg = URLDecoder.decode(message, "utf-8");
+            JsonObject jsonObject = (JsonObject) jsonParser.parse(decodeMsg);
             int level = jsonObject.get("level").getAsInt();
             String msg = jsonObject.get("msg").getAsString();
 
@@ -67,12 +69,6 @@ public class LogWebSocket {
             e.printStackTrace();
         }
 
-//        log.info("收到客户端{}消息：{}",session.getId(),message);
-//        try{
-//            this.sendMessage("收到消息："+message);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
 
     //处理错误
