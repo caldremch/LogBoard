@@ -35,3 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
+/LOG_HOME_IS_UNDEFINED/*
