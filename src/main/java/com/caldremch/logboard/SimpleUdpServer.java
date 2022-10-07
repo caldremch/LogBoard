@@ -61,7 +61,7 @@ public class SimpleUdpServer implements CommandLineRunner {
                              */
                             String data = new String(datagramPacket.getData(), 0, datagramPacket.getLength());
 
-                           log.info("server recv: ip=" + ip + ", port=" + port + ", data=" + data);
+//                           log.info("server recv: ip=" + ip + ", port=" + port + ", data=" + data);
 
                             /**
                              * 响应客户端

@@ -1,8 +1,11 @@
 package com.caldremch.logboard;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import sun.tools.jinfo.JInfo;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -19,6 +22,8 @@ public class LogWebSocket {
 
     //保存所有在线socket连接
     private static Map<String,LogWebSocket> webSocketMap = new LinkedHashMap<>();
+
+    private final static JsonParser jsonParser = new JsonParser();
 
     //记录当前在线数目
     private static int count=0;
@@ -42,7 +47,26 @@ public class LogWebSocket {
     //接受消息
     @OnMessage
     public void onMessage(String message,Session session){
-        log.info(message);
+
+        try {
+            log.info(message);
+            JsonObject jsonObject = (JsonObject) jsonParser.parse(message);
+            int level = jsonObject.get("level").getAsInt();
+            String msg = jsonObject.get("msg").getAsString();
+
+            switch (level){
+                case 0:
+                    log.debug(msg);
+                    break;
+                case 1:
+                    log.error(msg);
+                    break;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
 //        log.info("收到客户端{}消息：{}",session.getId(),message);
 //        try{
 //            this.sendMessage("收到消息："+message);
