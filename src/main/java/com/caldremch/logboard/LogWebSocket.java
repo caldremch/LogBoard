@@ -58,8 +58,8 @@ public class LogWebSocket {
             byte[] msgBytes = new byte[bytes.length - 1];
             System.arraycopy(bytes, 1, msgBytes, 0, msgBytes.length);
             String msg = new String(msgBytes);
-            log.info("level={}", level);
-            log.info("msg={}", msg);
+//            log.info("level={}", level);
+//            log.info("msg={}", msg);
             switch (level){
                 case 0:
                     log.debug(msg);
