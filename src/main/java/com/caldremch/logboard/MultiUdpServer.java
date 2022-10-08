@@ -97,6 +97,7 @@ public class MultiUdpServer implements CommandLineRunner {
         if (str.equalsIgnoreCase("C1WL2202208")) {
             // 可以进行异步处理
             String ipv4Address = udpService.getIPV4Address();
+//            log.info(ipv4Address);
             if (ipv4Address != null && ipv4Address.length() > 0) {
                 String ip = socketAddress.getAddress().getHostAddress();
                 int port = socketAddress.getPort();

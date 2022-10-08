@@ -1,5 +1,6 @@
 package com.caldremch.logboard;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.slf4j.Logger;
@@ -45,17 +46,20 @@ public class LogWebSocket {
         log.info("新的连接加入：{}",session.getId());
     }
 
+    private final static Gson gson = new Gson();
+
     //接受消息
     @OnMessage
     public void onMessage(String message,Session session){
 
         try {
-//            log.info(message);
-            String decodeMsg = URLDecoder.decode(message, "utf-8");
-            JsonObject jsonObject = (JsonObject) jsonParser.parse(decodeMsg);
-            int level = jsonObject.get("level").getAsInt();
-            String msg = jsonObject.get("msg").getAsString();
-
+            byte[] bytes = message.getBytes();
+            int level = bytes[0];
+            byte[] msgBytes = new byte[bytes.length - 1];
+            System.arraycopy(bytes, 1, msgBytes, 0, msgBytes.length);
+            String msg = new String(msgBytes);
+            log.info("level={}", level);
+            log.info("msg={}", msg);
             switch (level){
                 case 0:
                     log.debug(msg);
