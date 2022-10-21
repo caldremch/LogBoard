@@ -57,11 +57,12 @@ public class LogWebSocket {
             byte[] msgBytes = new byte[bytes.length - 1];
             System.arraycopy(bytes, 1, msgBytes, 0, msgBytes.length);
             String msg = new String(msgBytes);
-            switch (level){
-                case 0:
+            final DebugLogLevel logLevel = DebugLogLevel.getLogLevel(level);
+            switch (logLevel) {
+                case DEBUG:
                     log.debug(msg);
                     break;
-                case 1:
+                case ERROR:
                     log.error(msg);
                     break;
             }
